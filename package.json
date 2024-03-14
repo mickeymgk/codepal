@@ -1,0 +1,193 @@
+{
+  "name": "codepal",
+  "publisher": "MickeyMGK",
+  "displayName": "CodePal",
+  "description": "CodePal, a free AI code completion assistant, powered by DeepSeek Coder Model and Cloudflare.",
+  "homepage": "https://github.com/mickeymgk/codepal/#",
+  "repository": "https://github.com/mickeymgk/codepal",
+  "bugs": "https://github.com/mickeymgk/codepal/issues",
+  "license": "Unlicense",
+  "version": "0.0.1",
+  "keywords": [
+    "ai",
+    "autocomplete",
+    "code completion",
+    "copilot",
+    "intellisense",
+    "intellicode",
+    "snippets",
+    "codepal"
+  ],
+  "engines": {
+    "vscode": "^1.82.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Machine Learning",
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/node/extension.js",
+  "browser": "./dist/web/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codepal.toggleInlineCompletionTriggerMode",
+        "title": "codepal: Toggle Code Completion Trigger Mode (Automatic/Manual)"
+      },
+      {
+        "command": "codepal.inlineCompletion.trigger",
+        "title": "codepal: Trigger Code Completion Manually"
+      },
+      {
+        "command": "codepal.setApiEndpoint",
+        "title": "codepal: Specify API Endpoint of codepal"
+      },
+      {
+        "command": "codepal.setApiToken",
+        "title": "codepal: Set API Token"
+      },
+      {
+        "command": "codepal.openSettings",
+        "title": "codepal: Open Settings"
+      },
+      {
+        "command": "codepal.gettingStarted",
+        "title": "codepal: Getting Started"
+      },
+      {
+        "command": "codepal.openOnlineHelp",
+        "title": "codepal: Online Help"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "codepal.inlineCompletion.trigger",
+          "when": "config.codepal.inlineCompletion.triggerMode === 'manual' && !editorHasSelection && !inlineSuggestionsVisible"
+        }
+      ]
+    },
+    "walkthroughs": [
+      {
+        "id": "gettingStarted",
+        "title": "Getting Started with CodePal",
+        "description": "Set up your own AI coding assistant powered by DeepSeek Coder Model & Cloudflare, all for free.",
+        "steps": [
+          {
+            "id": "getAClouflareAccount",
+            "title": "Sign up for Cloudflare account",
+            "description": "The CodepPal VSCode extension requires a Cloudflare account to work. \n[Sign up](command:codepal.openSignUpPage)",
+            "media": {
+              "markdown": "assets/walkthroughs/introduction.md"
+            }
+          },
+          {
+            "id": "getAccountId",
+            "title": "Specify your Cloudflare account ID",
+            "description": "Once you've signed up for an account, head to Workers & Pages > Overview > Account details > Account ID, copy your Account ID and paste it here. \n[Specify Account ID](command:codepal.setAccountId)",
+            "media": {
+              "markdown": "assets/walkthroughs/setAccountId.md"
+            }
+          },
+          {
+            "id": "getApiToken",
+            "title": "Specify your Cloudflare API token",
+            "description": "Generate an API token. \n[Specify API Token](command:codepal.setApiToken)",
+            "media": {
+              "markdown": "assets/walkthroughs/setApiToken.md"
+            }
+          },
+          {
+            "id": "codeCompletion",
+            "title": "Code Completion",
+            "description": "CodePal provides inline suggestions automatically by default, and you can accept suggestions by just pressing the Tab key.",
+            "media": {
+              "markdown": "assets/walkthroughs/codeCompletion.md"
+            }
+          }
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "codepal",
+      "properties": {
+        "codepal.api.CloudflareAccountID": {
+          "type": "string",
+          "default": "",
+          "pattern": "^[a-zA-Z0-9]{32}$",
+          "patternErrorMessage": "Please enter a vaild account ID.",
+          "markdownDescription": "Enter your Cloudflare Account ID. You can obtain one from [here](https://dash.cloudflare.com/sign-up/workers-and-pages)."
+        },
+        "codepal.api.CloudflareApiToken":  {
+          "type": "string",
+          "default": "",
+          "pattern": "^[a-zA-Z0-9\\S]{40}$",
+          "patternErrorMessage": "Please enter a valid API Token.",
+          "markdownDescription": "Enter you Clouflare Workers AI API Token. You can generate a new token from [here](https://dash.cloudflare.com/profile/api-tokens)."
+        },
+        "codepal.inlineCompletion.triggerMode": {
+          "type": "string",
+          "enum": [
+            "automatic",
+            "manual"
+          ],
+          "default": "automatic",
+          "description": "Select the code completion trigger mode.",
+          "enumDescriptions": [
+            "Automatic trigger when you stop typing",
+            "Use `Alt+\\` shortcut to trigger completion, prevents quota overuse."
+          ]
+        }
+      }
+    },
+    "keybindings": [
+      {
+        "key": "alt+\\",
+        "command": "codepal.triggerInlineCompletion",
+        "when": "config.codepal.inlineCompletion.triggerMode === 'manual' && editorTextFocus && !editorHasSelection && !inlineSuggestionsVisible"
+      },
+      {
+        "command": "codepal.inlineCompletion.accept",
+        "key": "tab",
+        "when": "config.codepal.keybindings === 'vscode-style' && inlineSuggestionVisible && !editorReadonly && !suggestWidgetVisible && !editorHoverFocused && !editorTabMovesFocus && inlineSuggestionHasIndentationLessThanTabSize"
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsc --noEmit && tsup --minify --treeshake smallest",
+    "watch": "tsup --sourcemap --watch ./ --ignore-watch ./dist --ignore-watch ./.vscode-test-web --watch ../codepal-agent/dist",
+    "dev": "code --extensionDevelopmentPath=$PWD --disable-extensions && pnpm watch",
+    "dev:browser": "vscode-test-web --extensionDevelopmentPath=$PWD --browserType=chromium --port=3000 && pnpm watch",
+    "lint": "eslint --fix --ext .ts ./src && prettier --write .",
+    "lint:check": "eslint --ext .ts ./src && prettier --check .",
+    "vscode:prepackage": "pnpm build",
+    "vscode:package": "vsce package --no-dependencies",
+    "vscode:prepublish": "pnpm build",
+    "vscode:publish": "vsce publish --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.1",
+    "@types/node": "18.x",
+    "@types/node-fetch": "^2.6.11",
+    "@types/vscode": "^1.82.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "@vscode/test-electron": "^2.1.5",
+    "@vscode/test-web": "^0.0.44",
+    "@vscode/vsce": "^2.15.0",
+    "assert": "^2.0.0",
+    "esbuild-plugin-copy": "^2.1.1",
+    "esbuild-plugin-polyfill-node": "^0.3.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.0.0",
+    "prettier": "^3.0.0",
+    "tsup": "^7.2.0",
+    "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}

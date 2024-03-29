@@ -4,9 +4,9 @@ CodePal a free AI code completion assistant powered by DeepSeek Coder Model and 
 
 **Features:**
 
-* **AI-powered code completion:** Get suggestions for your code as you type, powered by DeepSeek.
-* **Automatic and manual triggers:** Choose between automatic suggestions or manually trigger them with a shortcut.
-* **Seamless integration:** CodePal works seamlessly within the VS Code interface.
+- **AI-powered code completion:** Get suggestions for your code as you type, powered by DeepSeek.
+- **Automatic and manual triggers:** Choose between automatic suggestions or manually trigger them with a shortcut.
+- **Seamless integration:** CodePal works seamlessly within the VS Code interface.
 
 **Getting Started**
 

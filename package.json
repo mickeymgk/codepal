@@ -7,7 +7,7 @@
   "repository": "https://github.com/mickeymgk/codepal",
   "bugs": "https://github.com/mickeymgk/codepal/issues",
   "license": "Unlicense",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "keywords": [
     "ai",
     "autocomplete",
@@ -62,6 +62,24 @@
         "title": "codepal: Online Help"
       }
     ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "codepal",
+          "title": "CodePal Chat",
+          "icon": "$(comments-view-icon)"
+        }
+      ]
+    },
+    "views": {
+      "codepal": [
+        {
+          "type": "webview",
+          "id": "codepal.chatView",
+          "name": "CodePal Chat"
+        }
+      ]
+    },
     "menus": {
       "commandPalette": [
         {
@@ -121,7 +139,7 @@
           "patternErrorMessage": "Please enter a vaild account ID.",
           "markdownDescription": "Enter your Cloudflare Account ID. You can obtain one from [here](https://dash.cloudflare.com/sign-up/workers-and-pages)."
         },
-        "codepal.api.CloudflareApiToken":  {
+        "codepal.api.CloudflareApiToken": {
           "type": "string",
           "default": "",
           "pattern": "^[a-zA-Z0-9\\S]{40}$",
@@ -175,6 +193,7 @@
     "@types/vscode": "^1.82.0",
     "@typescript-eslint/eslint-plugin": "^6.13.1",
     "@typescript-eslint/parser": "^6.13.1",
+    "@vscode/codicons": "0.0.35",
     "@vscode/test-electron": "^2.1.5",
     "@vscode/test-web": "^0.0.44",
     "@vscode/vsce": "^2.15.0",

@@ -28,7 +28,6 @@ export class CompletionProvider implements InlineCompletionItemProvider {
   private statusbar: CodePalStatusBarItem;
   private agent: CloudflareAgent;
 
-
   public constructor(statusbar: CodePalStatusBarItem, agent: CloudflareAgent) {
     this.statusbar = statusbar;
     this.updateConfiguration();
@@ -124,5 +123,4 @@ export class CompletionProvider implements InlineCompletionItemProvider {
       this.triggerMode = workspace.getConfiguration("codepal").get("inlineCompletion.triggerMode", "automatic");
     }
   }
-  
 }

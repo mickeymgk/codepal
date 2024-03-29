@@ -56,6 +56,28 @@ export class CloudflareAgent {
     }
   }
 
+  public async getMessage(model: Model, prompt: string): Promise<ApiResponse> {
+    const response = await fetch(`${this.baseUrl}${this.accountId}/ai/run/${model}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.apiToken}`,
+      },
+      body: JSON.stringify({
+        messages: [{ role: "user", content: prompt }],
+      }),
+    });
+
+    if (response.ok) {
+      const parsedResponse: ApiResponse = await response.json();
+      logger().info("Message received from server", parsedResponse);
+      return parsedResponse;
+    } else {
+      const errorMessage = `Error: ${response.statusText}`;
+      return Promise.reject(new Error(errorMessage));
+    }
+  }
+
   public updateConfiguration(accountId: string = "", apiToken: string = "") {
     this.accountId = accountId;
     this.apiToken = apiToken;

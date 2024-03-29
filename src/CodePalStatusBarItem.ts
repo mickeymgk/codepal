@@ -1,6 +1,10 @@
-import { StatusBarAlignment, ThemeColor, window, workspace,
+import {
+  StatusBarAlignment,
+  ThemeColor,
+  window,
+  workspace,
   // commands
- } from "vscode";
+} from "vscode";
 import { logger } from "./logger";
 import { notifications } from "./notifications";
 
@@ -28,10 +32,10 @@ export class CodePalStatusBarItem {
   }
 
   public isConfigured(): boolean {
-    const config = workspace.getConfiguration("codepal")
+    const config = workspace.getConfiguration("codepal");
     const apiKey = config.get<string>("api.CloudflareApiToken");
     const accountId = config.get<string>("api.CloudflareAccountID");
-  
+
     if (apiKey && accountId) {
       logger().info("Api token & account configured correctly.");
       return true;
@@ -113,5 +117,4 @@ export class CodePalStatusBarItem {
       arguments: [() => notifications.showInformationWhenNotConfigured()],
     };
   }
-
 }

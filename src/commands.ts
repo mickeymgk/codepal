@@ -19,9 +19,9 @@ const gettingStarted: Command = {
 const openOnlineHelp: Command = {
   command: "codepal.openOnlineHelp",
   callback: () => {
-    env.openExternal(Uri.parse("https://github.com/mickeymgk/codepal/issues"))
-  }
-}
+    env.openExternal(Uri.parse("https://github.com/mickeymgk/codepal/issues"));
+  },
+};
 
 const openSettings: Command = {
   command: "codepal.openSettings",
@@ -40,9 +40,9 @@ const applyCallback: Command = {
 const openSignUpPage: Command = {
   command: "codepal.openSignUpPage",
   callback: () => {
-    env.openExternal(Uri.parse("https://dash.cloudflare.com/sign-up"))
-  }
-}
+    env.openExternal(Uri.parse("https://dash.cloudflare.com/sign-up"));
+  },
+};
 
 const triggerInlineCompletion: Command = {
   command: "codepal.triggerInlineCompletion",
@@ -95,7 +95,7 @@ const setAccountId: Command = {
         }
       });
   },
-}
+};
 
 const setApiToken: Command = {
   command: "codepal.setApiToken",
@@ -125,7 +125,7 @@ const setApiToken: Command = {
         }
       });
   },
-}
+};
 
 export const codepalCommands = () =>
   [
@@ -137,5 +137,5 @@ export const codepalCommands = () =>
     gettingStarted,
     openSignUpPage,
     triggerInlineCompletion,
-    openOnlineHelp
+    openOnlineHelp,
   ].map((command) => commands.registerCommand(command.command, command.callback, command.thisArg));

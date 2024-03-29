@@ -75,13 +75,15 @@ function showInformationWhenInlineSuggestDisabled() {
 }
 
 function showInformationWhenNotConfigured() {
-  window.showInformationMessage("CodePal is not configured correctly, please configure it in the settings", "Settings").then((selection) => {
-    switch (selection) {
-      case "Settings":
-        commands.executeCommand("codepal.openSettings");
-        break;
-    }
-  });
+  window
+    .showInformationMessage("CodePal is not configured correctly, please configure it in the settings", "Settings")
+    .then((selection) => {
+      switch (selection) {
+        case "Settings":
+          commands.executeCommand("codepal.openSettings");
+          break;
+      }
+    });
 }
 
 export const notifications = {

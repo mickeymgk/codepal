@@ -46,13 +46,13 @@
   }
 
   function renderMarkdown(markdownText) {
-    // let md = markdownText;
+    let md = markdownText;
 
     const pattern = /(?:^`|[^`]`)([^`]+)(?:`[^`]|`)/gm; // Credits to https://t.me/SamAsEnd
-    markdownText = markdownText.replace(pattern, '<code style="margin-left:4px; margin-right:4px;>$1</code>');
+    md = md.replace(pattern, '<code style="margin-left:4px; margin-right:4px;>$1</code>');
 
     const codeRegex = /```([\s\S]*?)\n([\s\S]+?)\n```/g;
-    markdownText = markdownText.replace(codeRegex, function (match, lang, code) {
+    md = md.replace(codeRegex, function (match, lang, code) {
       lang = lang.trim();
       // If language is empty, pass null to highlightAuto for automatic detection
       if (lang === "") {
@@ -61,7 +61,8 @@
       const codeViewContainer = createCodeView(code);
       return codeViewContainer.outerHTML;
     });
-    return markdownText;
+
+    return md;
   }
 
   function createCodeView(code) {
@@ -113,7 +114,6 @@
     chatBody.appendChild(messageElement);
     chatBody.scrollTop = chatBody.scrollHeight;
   }
-
 })();
 
 /* eslint-enable */

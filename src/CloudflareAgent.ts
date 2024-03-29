@@ -47,7 +47,7 @@ export class CloudflareAgent {
     });
 
     if (response.ok) {
-      const parsedResponse: ApiResponse = await response.json();
+      const parsedResponse: ApiResponse = (await response.json()) as ApiResponse;
       logger().info("Suggestion received from server");
       return parsedResponse;
     } else {
@@ -69,8 +69,8 @@ export class CloudflareAgent {
     });
 
     if (response.ok) {
-      const parsedResponse: ApiResponse = await response.json();
-      logger().info("Message received from server", parsedResponse);
+      const parsedResponse: ApiResponse = (await response.json()) as ApiResponse;
+      logger().debug("Message received from server", parsedResponse);
       return parsedResponse;
     } else {
       const errorMessage = `Error: ${response.statusText}`;

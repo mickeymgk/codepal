@@ -1,3 +1,19 @@
+## 0.0.3
+
+### Features:
+
+- Added the ability to prompt with code selection for editor.
+- Added  extension icon.
+- Published to Extension Marketplace.
+
+## 0.0.2
+
+### Features:
+
+- Added basic chat functionality.
+
+## 0.0.1
+
 ### Features:
 
 - Added CodePal extension walkthrough guide.
@@ -11,4 +27,4 @@
 
 ### Fixes:
 
-- Fixed wrongs hole, start and end formatting.
+- Fixed wrong hole, start and end formatting.

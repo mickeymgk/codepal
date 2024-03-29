@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
-import { CancellationToken, ExtensionContext, Uri, Webview, WebviewView, WebviewViewResolveContext } from "vscode";
+import { ExtensionContext, Uri, Webview, WebviewView } from "vscode";
 import { ApiResponse, CloudflareAgent, Model } from "./CloudflareAgent";
+import { CodePalStatusBarItem } from "./CodePalStatusBarItem";
 
 export class CodePalViewProvider implements vscode.WebviewViewProvider {
   public static readonly viewType = "codepal.chatView";
@@ -9,16 +10,17 @@ export class CodePalViewProvider implements vscode.WebviewViewProvider {
   private context: ExtensionContext;
   private extensionUri: Uri;
   private agent: CloudflareAgent;
+  private statusBar: CodePalStatusBarItem;
 
-  constructor(context: ExtensionContext, agent: CloudflareAgent) {
+  constructor(context: ExtensionContext, agent: CloudflareAgent, statusBar: CodePalStatusBarItem) {
     this.context = context;
     this.extensionUri = context.extensionUri;
     this.agent = agent;
+    this.statusBar = statusBar;
   }
 
-  public resolveWebviewView(webviewView: WebviewView, context: WebviewViewResolveContext, token: CancellationToken) {
+  public resolveWebviewView(webviewView: WebviewView) {
     this.view = webviewView;
-    console.log(" ", context, token);
 
     webviewView.webview.options = {
       enableScripts: true,
@@ -39,11 +41,23 @@ export class CodePalViewProvider implements vscode.WebviewViewProvider {
   }
 
   private async getMessage(message: string) {
-    const response: ApiResponse = await this.agent.getMessage(Model.Instruct, message);
+    let prompt = "";
+    const selection = vscode.window.activeTextEditor?.selection;
+    const selectedText = vscode.window.activeTextEditor?.document.getText(selection);
+
+    if (selection && selectedText) {
+      prompt = `${prompt}\n${selectedText}\n`;
+    } else {
+      prompt = message;
+    }
+
+    this.statusBar.toLoading();
+    const response: ApiResponse = await this.agent.getMessage(Model.Instruct, prompt);
 
     if (this.view) {
       this.view.webview.postMessage({ type: "addResponse", value: response.result.response });
     }
+    this.statusBar.update();
   }
 
   private getHtmlForWebview(webview: Webview, extensionUri: Uri) {
@@ -52,7 +66,7 @@ export class CodePalViewProvider implements vscode.WebviewViewProvider {
     );
     const logic = webview.asWebviewUri(Uri.joinPath(extensionUri, "assets", "logic.js"));
     const highlight = webview.asWebviewUri(Uri.joinPath(extensionUri, "assets", "highlight.min.js"));
-    const highlightCss = webview.asWebviewUri(Uri.joinPath(extensionUri, "assets", "vs2015.min.css"));
+    const vscodeTheme = webview.asWebviewUri(Uri.joinPath(extensionUri, "assets", "vs2015.min.css"));
 
     return `<!DOCTYPE html>
     <html lang="en">
@@ -151,7 +165,7 @@ export class CodePalViewProvider implements vscode.WebviewViewProvider {
         }
       </style>
       <link href="${codicons}" rel="stylesheet" />
-      <link href="${highlightCss}" rel="stylesheet" />
+      <link href="${vscodeTheme}" rel="stylesheet" />
     </head>
     <body>
       <div class="chat-container">

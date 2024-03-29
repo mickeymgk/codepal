@@ -19,8 +19,7 @@ export function activate(context: ExtensionContext) {
 
   const cloudflareAgent = new CloudflareAgent(accountId, apiToken);
   const provider = new CompletionProvider(statusBarItem, cloudflareAgent);
-  const codePalViewProvider = new CodePalViewProvider(context, cloudflareAgent);
-  // codePalViewProvider.setSessionToken(sessionToken);
+  const codePalViewProvider = new CodePalViewProvider(context, cloudflareAgent, statusBarItem);
 
   context.subscriptions.push(
     languages.registerInlineCompletionItemProvider({ pattern: "**" }, provider),

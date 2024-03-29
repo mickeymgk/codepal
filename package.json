@@ -1,13 +1,14 @@
 {
-  "name": "codepal",
+  "name": "codepal-vscode",
   "publisher": "MickeyMGK",
-  "displayName": "CodePal",
+  "displayName": "CodePal VSCode",
+  "icon": "assets/icon.png",
   "description": "CodePal, a free AI code completion assistant, powered by DeepSeek Coder Model and Cloudflare.",
   "homepage": "https://github.com/mickeymgk/codepal/#",
   "repository": "https://github.com/mickeymgk/codepal",
   "bugs": "https://github.com/mickeymgk/codepal/issues",
   "license": "Unlicense",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "keywords": [
     "ai",
     "autocomplete",

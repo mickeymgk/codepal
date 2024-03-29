@@ -35,38 +35,38 @@
   "contributes": {
     "commands": [
       {
-        "command": "codepal.toggleInlineCompletionTriggerMode",
+        "command": "codepal-vscode.toggleInlineCompletionTriggerMode",
         "title": "codepal: Toggle Code Completion Trigger Mode (Automatic/Manual)"
       },
       {
-        "command": "codepal.inlineCompletion.trigger",
+        "command": "codepal-vscode.inlineCompletion.trigger",
         "title": "codepal: Trigger Code Completion Manually"
       },
       {
-        "command": "codepal.setApiEndpoint",
+        "command": "codepal-vscode.setApiEndpoint",
         "title": "codepal: Specify API Endpoint of codepal"
       },
       {
-        "command": "codepal.setApiToken",
+        "command": "codepal-vscode.setApiToken",
         "title": "codepal: Set API Token"
       },
       {
-        "command": "codepal.openSettings",
+        "command": "codepal-vscode.openSettings",
         "title": "codepal: Open Settings"
       },
       {
-        "command": "codepal.gettingStarted",
+        "command": "codepal-vscode.gettingStarted",
         "title": "codepal: Getting Started"
       },
       {
-        "command": "codepal.openOnlineHelp",
+        "command": "codepal-vscode.openOnlineHelp",
         "title": "codepal: Online Help"
       }
     ],
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "codepal",
+          "id": "codepal-vscode",
           "title": "CodePal Chat",
           "icon": "$(comments-view-icon)"
         }
@@ -76,7 +76,7 @@
       "codepal": [
         {
           "type": "webview",
-          "id": "codepal.chatView",
+          "id": "codepal-vscode.chatView",
           "name": "CodePal Chat"
         }
       ]
@@ -84,8 +84,8 @@
     "menus": {
       "commandPalette": [
         {
-          "command": "codepal.inlineCompletion.trigger",
-          "when": "config.codepal.inlineCompletion.triggerMode === 'manual' && !editorHasSelection && !inlineSuggestionsVisible"
+          "command": "codepal-vscode.inlineCompletion.trigger",
+          "when": "config.codepal-vscode.inlineCompletion.triggerMode === 'manual' && !editorHasSelection && !inlineSuggestionsVisible"
         }
       ]
     },
@@ -98,7 +98,7 @@
           {
             "id": "getAClouflareAccount",
             "title": "Sign up for Cloudflare account",
-            "description": "The CodepPal VSCode extension requires a Cloudflare account to work. \n[Sign up](command:codepal.openSignUpPage)",
+            "description": "The CodepPal VSCode extension requires a Cloudflare account to work. \n[Sign up](command:codepal-vscode.openSignUpPage)",
             "media": {
               "markdown": "assets/walkthroughs/introduction.md"
             }
@@ -106,7 +106,7 @@
           {
             "id": "getAccountId",
             "title": "Specify your Cloudflare account ID",
-            "description": "Once you've signed up for an account, head to Workers & Pages > Overview > Account details > Account ID, copy your Account ID and paste it here. \n[Specify Account ID](command:codepal.setAccountId)",
+            "description": "Once you've signed up for an account, head to Workers & Pages > Overview > Account details > Account ID, copy your Account ID and paste it here. \n[Specify Account ID](command:codepal-vscode.setAccountId)",
             "media": {
               "markdown": "assets/walkthroughs/setAccountId.md"
             }
@@ -114,7 +114,7 @@
           {
             "id": "getApiToken",
             "title": "Specify your Cloudflare API token",
-            "description": "Generate an API token. \n[Specify API Token](command:codepal.setApiToken)",
+            "description": "Generate an API token. \n[Specify API Token](command:codepal-vscode.setApiToken)",
             "media": {
               "markdown": "assets/walkthroughs/setApiToken.md"
             }
@@ -133,21 +133,21 @@
     "configuration": {
       "title": "codepal",
       "properties": {
-        "codepal.api.CloudflareAccountID": {
+        "codepal-vscode.api.CloudflareAccountID": {
           "type": "string",
           "default": "",
           "pattern": "^[a-zA-Z0-9]{32}$",
           "patternErrorMessage": "Please enter a vaild account ID.",
           "markdownDescription": "Enter your Cloudflare Account ID. You can obtain one from [here](https://dash.cloudflare.com/sign-up/workers-and-pages)."
         },
-        "codepal.api.CloudflareApiToken": {
+        "codepal-vscode.api.CloudflareApiToken": {
           "type": "string",
           "default": "",
           "pattern": "^[a-zA-Z0-9\\S]{40}$",
           "patternErrorMessage": "Please enter a valid API Token.",
           "markdownDescription": "Enter you Clouflare Workers AI API Token. You can generate a new token from [here](https://dash.cloudflare.com/profile/api-tokens)."
         },
-        "codepal.inlineCompletion.triggerMode": {
+        "codepal-vscode.inlineCompletion.triggerMode": {
           "type": "string",
           "enum": [
             "automatic",
@@ -165,13 +165,13 @@
     "keybindings": [
       {
         "key": "alt+\\",
-        "command": "codepal.triggerInlineCompletion",
-        "when": "config.codepal.inlineCompletion.triggerMode === 'manual' && editorTextFocus && !editorHasSelection && !inlineSuggestionsVisible"
+        "command": "codepal-vscode.triggerInlineCompletion",
+        "when": "config.codepal-vscode.inlineCompletion.triggerMode === 'manual' && editorTextFocus && !editorHasSelection && !inlineSuggestionsVisible"
       },
       {
-        "command": "codepal.inlineCompletion.accept",
+        "command": "codepal-vscode.inlineCompletion.accept",
         "key": "tab",
-        "when": "config.codepal.keybindings === 'vscode-style' && inlineSuggestionVisible && !editorReadonly && !suggestWidgetVisible && !editorHoverFocused && !editorTabMovesFocus && inlineSuggestionHasIndentationLessThanTabSize"
+        "when": "config.codepal-vscode.keybindings === 'vscode-style' && inlineSuggestionVisible && !editorReadonly && !suggestWidgetVisible && !editorHoverFocused && !editorTabMovesFocus && inlineSuggestionHasIndentationLessThanTabSize"
       }
     ]
   },

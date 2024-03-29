@@ -61,9 +61,7 @@ export class CodePalViewProvider implements vscode.WebviewViewProvider {
   }
 
   private getHtmlForWebview(webview: Webview, extensionUri: Uri) {
-    const codicons = webview.asWebviewUri(
-      Uri.joinPath(extensionUri, "node_modules", "@vscode/codicons", "dist", "codicon.css"),
-    );
+    const codicons = webview.asWebviewUri(Uri.joinPath(extensionUri, "assets", "codicon.css"));
     const logic = webview.asWebviewUri(Uri.joinPath(extensionUri, "assets", "logic.js"));
     const highlight = webview.asWebviewUri(Uri.joinPath(extensionUri, "assets", "highlight.min.js"));
     const vscodeTheme = webview.asWebviewUri(Uri.joinPath(extensionUri, "assets", "vs2015.min.css"));

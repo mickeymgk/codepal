@@ -12,7 +12,7 @@ type Command = {
 const gettingStarted: Command = {
   command: "codepal-vscode.gettingStarted",
   callback: () => {
-    commands.executeCommand("workbench.action.openWalkthrough", "MickeyMGK.codepal#gettingStarted");
+    commands.executeCommand("workbench.action.openWalkthrough", "MickeyMGK.codepal-vscode#gettingStarted");
   },
 };
 

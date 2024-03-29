@@ -8,7 +8,7 @@
   "repository": "https://github.com/mickeymgk/codepal",
   "bugs": "https://github.com/mickeymgk/codepal/issues",
   "license": "Unlicense",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "keywords": [
     "ai",
     "autocomplete",

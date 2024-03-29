@@ -8,8 +8,6 @@ CodePal a free AI code completion assistant powered by DeepSeek Coder Model and 
 - **Automatic and manual triggers:** Choose between automatic suggestions or manually trigger them with a shortcut.
 - **Seamless integration:** CodePal works seamlessly within the VS Code interface.
 
-
-
 **Getting Started**
 
 1. **Install the CodePal extension:** Open VS Code and go to the Extensions tab (Ctrl+Shift+X). Search for "CodePal" and install the extension.

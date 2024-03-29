@@ -8,4 +8,4 @@ CodePal will show inline suggestions when you stop typing, and you can accept su
 
 ## Manual Trigger
 
-If you select manual trigger in the [settings](command:codepal.openSettings), you can trigger code completion by pressing `Alt + \`.
+If you select manual trigger in the [settings](command:codepal-vscode.openSettings), you can trigger code completion by pressing `Alt + \`.

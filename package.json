@@ -43,10 +43,6 @@
         "title": "codepal: Trigger Code Completion Manually"
       },
       {
-        "command": "codepal-vscode.setApiEndpoint",
-        "title": "codepal: Specify API Endpoint of codepal"
-      },
-      {
         "command": "codepal-vscode.setApiToken",
         "title": "codepal: Set API Token"
       },

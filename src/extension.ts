@@ -11,7 +11,7 @@ import { CodePalViewProvider } from "./CodePalViewProvider";
 export function activate(context: ExtensionContext) {
   logger().info("Activating CodePal extension");
 
-  const config = workspace.getConfiguration("codepal");
+  const config = workspace.getConfiguration("codepal-vscode");
   const statusBarItem = new CodePalStatusBarItem();
 
   const accountId = config.get<string>("api.CloudflareAccountID");
@@ -33,8 +33,8 @@ export function activate(context: ExtensionContext) {
   workspace.onDidChangeConfiguration(async (event) => {
     statusBarItem.update();
     if (
-      event.affectsConfiguration("codepal.api.CloudflareAccountID") ||
-      event.affectsConfiguration("codepal.api.CloudflareApiToken")
+      event.affectsConfiguration("codepal-vscode.api.CloudflareAccountID") ||
+      event.affectsConfiguration("codepal-vscode.api.CloudflareApiToken")
     ) {
       cloudflareAgent.updateConfiguration(
         config.get<string>("api.CloudflareAccountID"),

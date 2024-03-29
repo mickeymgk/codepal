@@ -11,10 +11,10 @@ function showInformationWhenAutomaticTrigger() {
     .then((selection) => {
       switch (selection) {
         case "Manual Mode":
-          commands.executeCommand("codepal.toggleInlineCompletionTriggerMode", "manual");
+          commands.executeCommand("codepal-vscode.toggleInlineCompletionTriggerMode", "manual");
           break;
         case "Settings":
-          commands.executeCommand("codepal.openSettings");
+          commands.executeCommand("codepal-vscode.openSettings");
           break;
       }
     });
@@ -34,10 +34,10 @@ function showInformationWhenManualTrigger() {
           commands.executeCommand("editor.action.inlineSuggest.trigger");
           break;
         case "Automatic Mode":
-          commands.executeCommand("codepal.toggleInlineCompletionTriggerMode", "automatic");
+          commands.executeCommand("codepal-vscode.toggleInlineCompletionTriggerMode", "automatic");
           break;
         case "Settings":
-          commands.executeCommand("codepal.openSettings");
+          commands.executeCommand("codepal-vscode.openSettings");
           break;
       }
     });
@@ -47,7 +47,7 @@ function showInformationWhenManualTriggerLoading() {
   window.showInformationMessage("CodePal is generating code completions.", "Settings").then((selection) => {
     switch (selection) {
       case "Settings":
-        commands.executeCommand("codepal.openSettings");
+        commands.executeCommand("codepal-vscode.openSettings");
         break;
     }
   });
@@ -80,7 +80,7 @@ function showInformationWhenNotConfigured() {
     .then((selection) => {
       switch (selection) {
         case "Settings":
-          commands.executeCommand("codepal.openSettings");
+          commands.executeCommand("codepal-vscode.openSettings");
           break;
       }
     });

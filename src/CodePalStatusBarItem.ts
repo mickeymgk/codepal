@@ -32,7 +32,7 @@ export class CodePalStatusBarItem {
   }
 
   public isConfigured(): boolean {
-    const config = workspace.getConfiguration("codepal");
+    const config = workspace.getConfiguration("codepal-vscode");
     const apiKey = config.get<string>("api.CloudflareApiToken");
     const accountId = config.get<string>("api.CloudflareAccountID");
 
@@ -47,7 +47,7 @@ export class CodePalStatusBarItem {
 
   public update() {
     if (this.isConfigured()) {
-      if (workspace.getConfiguration("codepal").get("inlineCompletion.triggerMode") === "automatic") {
+      if (workspace.getConfiguration("codepal-vscode").get("inlineCompletion.triggerMode") === "automatic") {
         this.toAutomatic();
       } else {
         this.toManual();
@@ -64,7 +64,7 @@ export class CodePalStatusBarItem {
     this.item.tooltip = "CodePal automatic code completion is enabled.";
     this.item.command = {
       title: "",
-      command: "codepal.applyCallback",
+      command: "codepal-vscode.applyCallback",
       arguments: [() => notifications.showInformationWhenAutomaticTrigger()],
     };
   }
@@ -76,7 +76,7 @@ export class CodePalStatusBarItem {
     this.item.tooltip = "CodePal is standing by, click or press `Alt + \\` to trigger code completion.";
     this.item.command = {
       title: "",
-      command: "codepal.applyCallback",
+      command: "codepal-vscode.applyCallback",
       arguments: [() => notifications.showInformationWhenManualTrigger()],
     };
   }
@@ -88,7 +88,7 @@ export class CodePalStatusBarItem {
     this.item.tooltip = "CodePal is generating code completions.";
     this.item.command = {
       title: "",
-      command: "codepal.applyCallback",
+      command: "codepal-vscode.applyCallback",
     };
   }
 
@@ -99,7 +99,7 @@ export class CodePalStatusBarItem {
     this.item.tooltip = "CodePal is disabled. Click to check settings.";
     this.item.command = {
       title: "",
-      command: "codepal.applyCallback",
+      command: "codepal-vscode.applyCallback",
       arguments: [() => notifications.showInformationWhenInlineSuggestDisabled()],
     };
 
@@ -113,7 +113,7 @@ export class CodePalStatusBarItem {
     this.item.tooltip = "CodePal is not configured corretly. Click to check settings.";
     this.item.command = {
       title: "",
-      command: "codepal.applyCallback",
+      command: "codepal-vscode.applyCallback",
       arguments: [() => notifications.showInformationWhenNotConfigured()],
     };
   }

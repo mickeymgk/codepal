@@ -10,51 +10,51 @@ type Command = {
 };
 
 const gettingStarted: Command = {
-  command: "codepal.gettingStarted",
+  command: "codepal-vscode.gettingStarted",
   callback: () => {
     commands.executeCommand("workbench.action.openWalkthrough", "MickeyMGK.codepal#gettingStarted");
   },
 };
 
 const openOnlineHelp: Command = {
-  command: "codepal.openOnlineHelp",
+  command: "codepal-vscode.openOnlineHelp",
   callback: () => {
     env.openExternal(Uri.parse("https://github.com/mickeymgk/codepal/issues"));
   },
 };
 
 const openSettings: Command = {
-  command: "codepal.openSettings",
+  command: "codepal-vscode.openSettings",
   callback: () => {
-    commands.executeCommand("workbench.action.openSettings", "@ext:MickeyMGK.codepal");
+    commands.executeCommand("workbench.action.openSettings", "@ext:MickeyMGK.codepal-vscode");
   },
 };
 
 const applyCallback: Command = {
-  command: "codepal.applyCallback",
+  command: "codepal-vscode.applyCallback",
   callback: (callback) => {
     callback?.();
   },
 };
 
 const openSignUpPage: Command = {
-  command: "codepal.openSignUpPage",
+  command: "codepal-vscode.openSignUpPage",
   callback: () => {
     env.openExternal(Uri.parse("https://dash.cloudflare.com/sign-up"));
   },
 };
 
 const triggerInlineCompletion: Command = {
-  command: "codepal.triggerInlineCompletion",
+  command: "codepal-vscode.triggerInlineCompletion",
   callback: () => {
     commands.executeCommand("editor.action.inlineSuggest.trigger");
   },
 };
 
 const toggleInlineCompletionTriggerMode: Command = {
-  command: "codepal.toggleInlineCompletionTriggerMode",
+  command: "codepal-vscode.toggleInlineCompletionTriggerMode",
   callback: (value: "automatic" | "manual" | undefined) => {
-    const configuration = workspace.getConfiguration("codepal");
+    const configuration = workspace.getConfiguration("codepal-vscode");
     let target = value;
     if (!target) {
       const current = configuration.get("inlineCompletion.triggerMode", "automatic");
@@ -69,9 +69,9 @@ const toggleInlineCompletionTriggerMode: Command = {
 };
 
 const setAccountId: Command = {
-  command: "codepal.setAccountId",
+  command: "codepal-vscode.setAccountId",
   callback: () => {
-    const configuration = workspace.getConfiguration("codepal");
+    const configuration = workspace.getConfiguration("codepal-vscode");
     window
       .showInputBox({
         prompt: "Enter your Cloudflare Account ID",
@@ -98,9 +98,9 @@ const setAccountId: Command = {
 };
 
 const setApiToken: Command = {
-  command: "codepal.setApiToken",
+  command: "codepal-vscode.setApiToken",
   callback: () => {
-    const configuration = workspace.getConfiguration("codepal");
+    const configuration = workspace.getConfiguration("codepal-vscode");
     window
       .showInputBox({
         prompt: "Enter your Cloudflare API token",

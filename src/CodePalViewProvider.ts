@@ -4,7 +4,7 @@ import { ApiResponse, CloudflareAgent, Model } from "./CloudflareAgent";
 import { CodePalStatusBarItem } from "./CodePalStatusBarItem";
 
 export class CodePalViewProvider implements vscode.WebviewViewProvider {
-  public static readonly viewType = "codepal.chatView";
+  public static readonly viewType = "codepal-vscode.chatView";
 
   private view?: WebviewView;
   private context: ExtensionContext;

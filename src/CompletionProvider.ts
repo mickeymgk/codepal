@@ -32,7 +32,7 @@ export class CompletionProvider implements InlineCompletionItemProvider {
     this.statusbar = statusbar;
     this.updateConfiguration();
     workspace.onDidChangeConfiguration((event) => {
-      if (event.affectsConfiguration("codepal") || event.affectsConfiguration("editor.inlineSuggest")) {
+      if (event.affectsConfiguration("codepal-vscode") || event.affectsConfiguration("editor.inlineSuggest")) {
         this.updateConfiguration();
       }
     });
@@ -104,7 +104,7 @@ export class CompletionProvider implements InlineCompletionItemProvider {
           response.result.response,
           new Range(position.line, position.character, position.line, position.character),
           {
-            command: "codepal.applyCallback",
+            command: "codepal-vscode.applyCallback",
             title: "CodePal Inline Completion Command",
             arguments: ["ping", "pong"],
           },
@@ -120,7 +120,7 @@ export class CompletionProvider implements InlineCompletionItemProvider {
     if (!workspace.getConfiguration("editor").get("inlineSuggest.enabled", true)) {
       this.triggerMode = "disabled";
     } else {
-      this.triggerMode = workspace.getConfiguration("codepal").get("inlineCompletion.triggerMode", "automatic");
+      this.triggerMode = workspace.getConfiguration("codepal-vscode").get("inlineCompletion.triggerMode", "automatic");
     }
   }
 }

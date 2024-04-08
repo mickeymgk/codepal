@@ -1,10 +1,4 @@
-import {
-  StatusBarAlignment,
-  ThemeColor,
-  window,
-  workspace,
-  // commands
-} from "vscode";
+import { StatusBarAlignment, ThemeColor, debug, window, workspace } from "vscode";
 import { logger } from "./logger";
 import { notifications } from "./notifications";
 
@@ -14,6 +8,7 @@ const iconCodePal = "$(copilot)";
 const iconDisabled = "$(x)";
 const iconIssueExist = "$(warning)";
 const colorNormal = new ThemeColor("statusBar.foreground");
+const colorDebug = new ThemeColor("statusBar.debuggingForeground");
 const colorWarning = new ThemeColor("statusBarItem.warningForeground");
 const backgroundColorNormal = new ThemeColor("statusBar.background");
 const backgroundColorWarning = new ThemeColor("statusBarItem.warningBackground");
@@ -47,18 +42,16 @@ export class CodePalStatusBarItem {
 
   public update() {
     if (this.isConfigured()) {
-      if (workspace.getConfiguration("codepal-vscode").get("inlineCompletion.triggerMode") === "automatic") {
-        this.toAutomatic();
-      } else {
-        this.toManual();
-      }
+      this.item.color = debug.activeDebugSession ? colorDebug : colorNormal;
+      workspace.getConfiguration("codepal-vscode").get("inlineCompletion.triggerMode") === "automatic"
+        ? this.toAutomatic()
+        : this.toManual();
     } else {
       this.toIssuesExist();
     }
   }
 
   private toAutomatic() {
-    this.item.color = colorNormal;
     this.item.backgroundColor = backgroundColorNormal;
     this.item.text = `${iconCodePal} ${label} (auto)`;
     this.item.tooltip = "CodePal automatic code completion is enabled.";
@@ -70,7 +63,6 @@ export class CodePalStatusBarItem {
   }
 
   private toManual() {
-    this.item.color = colorNormal;
     this.item.backgroundColor = backgroundColorNormal;
     this.item.text = `${iconCodePal} ${label} (manual)`;
     this.item.tooltip = "CodePal is standing by, click or press `Alt + \\` to trigger code completion.";
@@ -82,7 +74,6 @@ export class CodePalStatusBarItem {
   }
 
   public toLoading() {
-    this.item.color = colorNormal;
     this.item.backgroundColor = backgroundColorNormal;
     this.item.text = `${iconLoading} ${label}`;
     this.item.tooltip = "CodePal is generating code completions.";
@@ -93,7 +84,6 @@ export class CodePalStatusBarItem {
   }
 
   private toDisabled() {
-    this.item.color = colorWarning;
     this.item.backgroundColor = backgroundColorWarning;
     this.item.text = `${iconDisabled} ${label}`;
     this.item.tooltip = "CodePal is disabled. Click to check settings.";

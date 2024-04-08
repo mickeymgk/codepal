@@ -9,10 +9,12 @@
   window.addEventListener("message", (event) => {
     const message = event.data;
     switch (message.type) {
-      case "addResponse": {
+      case "addResponse":
         response = message.value;
         addMessage(response, "CodePal");
         break;
+      case "refresh": {
+        refreshView();
       }
     }
   });
@@ -86,12 +88,17 @@
     return container;
   }
 
+  function refreshView() {
+    chatBody.innerHTML = "";
+  }
+
   function addMessage(text, sender) {
     const messageElement = document.createElement("div");
 
     const senderContainer = document.createElement("div");
     senderContainer.classList.add("sender-container");
     const senderName = document.createElement("p");
+    senderName.style.fontWeight = "bold";
 
     const icon = document.createElement("div");
     icon.classList.add("icon", "codicon", "codicon-copilot");

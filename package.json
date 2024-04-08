@@ -8,7 +8,7 @@
   "repository": "https://github.com/mickeymgk/codepal",
   "bugs": "https://github.com/mickeymgk/codepal/issues",
   "license": "Unlicense",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "keywords": [
     "ai",
     "autocomplete",
@@ -34,6 +34,11 @@
   "browser": "./dist/web/extension.js",
   "contributes": {
     "commands": [
+      {
+        "command": "codepal-vscode.refreshChat",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
       {
         "command": "codepal-vscode.toggleInlineCompletionTriggerMode",
         "title": "codepal: Toggle Code Completion Trigger Mode (Automatic/Manual)"
@@ -63,7 +68,7 @@
       "activitybar": [
         {
           "id": "codepal-vscode",
-          "title": "CodePal Chat",
+          "title": "CodePal",
           "icon": "$(comments-view-icon)"
         }
       ]
@@ -73,11 +78,25 @@
         {
           "type": "webview",
           "id": "codepal-vscode.chatView",
-          "name": "CodePal Chat"
+          "name": "Chat",
+          "onView": [
+            {
+              "id": "codepal-vscode.refreshView",
+              "label": "Refresh",
+              "command": "codepal-vscode.refreshChat"
+            }
+          ]
         }
       ]
     },
     "menus": {
+      "view/title": [
+        {
+          "command": "codepal-vscode.refreshChat",
+          "when": "view == codepal-vscode.chatView",
+          "group": "navigation"
+        }
+      ],
       "commandPalette": [
         {
           "command": "codepal-vscode.inlineCompletion.trigger",

@@ -60,6 +60,10 @@ export class CodePalViewProvider implements vscode.WebviewViewProvider {
     this.statusBar.update();
   }
 
+  public refresh() {
+    this.view?.webview.postMessage({ type: "refresh" });
+  }
+
   private getHtmlForWebview(webview: Webview, extensionUri: Uri) {
     const codicons = webview.asWebviewUri(Uri.joinPath(extensionUri, "assets", "codicon.css"));
     const logic = webview.asWebviewUri(Uri.joinPath(extensionUri, "assets", "logic.js"));
@@ -155,7 +159,7 @@ export class CodePalViewProvider implements vscode.WebviewViewProvider {
         .sender-container {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 8px;
         }
 
         .codeview-container {

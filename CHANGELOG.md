@@ -3,7 +3,7 @@
 ### Features:
 
 - Added the ability to prompt with code selection for editor.
-- Added  extension icon.
+- Added extension icon.
 - Published to Extension Marketplace.
 
 ## 0.0.2

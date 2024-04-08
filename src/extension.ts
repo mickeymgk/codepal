@@ -1,4 +1,4 @@
-import { ExtensionContext, languages, workspace, window } from "vscode";
+import { ExtensionContext, languages, workspace, window, debug, commands } from "vscode";
 import { logger } from "./logger";
 import { codepalCommands } from "./commands";
 import { CodePalStatusBarItem } from "./CodePalStatusBarItem";
@@ -45,6 +45,10 @@ export function activate(context: ExtensionContext) {
     }
   });
 
+  debug.onDidChangeActiveDebugSession(() => {
+    statusBarItem.update();
+  });
+  commands.registerCommand("codepal-vscode.refreshChat", () => codePalViewProvider.refresh());
   logger().info("Activated CodePal extension");
 }
 

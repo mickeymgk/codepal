@@ -58,11 +58,7 @@ const toggleInlineCompletionTriggerMode: Command = {
     let target = value;
     if (!target) {
       const current = configuration.get("inlineCompletion.triggerMode", "automatic");
-      if (current === "automatic") {
-        target = "manual";
-      } else {
-        target = "automatic";
-      }
+      target = current === "automatic" ? "manual" : "automatic";
     }
     configuration.update("inlineCompletion.triggerMode", target, configTarget, false);
   },
@@ -127,6 +123,13 @@ const setApiToken: Command = {
   },
 };
 
+// const refreshChat: Command = {
+//   command: "codepal-vscode.refreshChat",
+//   callback: () => {
+
+//   },
+// };
+
 export const codepalCommands = () =>
   [
     applyCallback,
@@ -138,4 +141,5 @@ export const codepalCommands = () =>
     openSignUpPage,
     triggerInlineCompletion,
     openOnlineHelp,
+    // refreshChat
   ].map((command) => commands.registerCommand(command.command, command.callback, command.thisArg));

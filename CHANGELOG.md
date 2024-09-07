@@ -1,3 +1,9 @@
+## 0.0.4
+
+### Features:
+
+- Added support for message streaming in chats.
+
 ## 0.0.3
 
 ### Features:

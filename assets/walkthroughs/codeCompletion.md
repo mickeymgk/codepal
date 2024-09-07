@@ -4,7 +4,7 @@
 
 CodePal will show inline suggestions when you stop typing, and you can accept suggestions by just pressing the `Tab` key.
 
-![Demo](https://github.com/mickeymgk/codepal/assets/demo.gif)
+![Demo](https://github.com/mickeymgk/codepal/assets/demo.gif?raw=true)
 
 ## Manual Trigger
 

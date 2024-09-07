@@ -3,20 +3,25 @@
 (function () {
   const vscode = acquireVsCodeApi();
 
-  // Handle messages coming from extension
+  let response = "";
+
+  // Handle messages sent from the extension to the webview
   window.addEventListener("message", (event) => {
     const message = event.data;
-    if (message.type === "add" || message.type === "end") {
-      handleIncomingMessage(message);
-    } else if (message.type === "refresh") {
-      refreshView();
+    switch (message.type) {
+      case "addResponse":
+        response = message.value;
+        addMessage(response, "CodePal");
+        break;
+      case "refresh": {
+        refreshView();
+      }
     }
   });
 
   const chatBody = document.getElementById("chat-body");
   const chatInput = document.getElementById("chat-input");
   const sendBtn = document.getElementById("send-btn");
-  const textContainers = [];
 
   // TODO: Add option to ignore "shift + enter".
   chatInput.addEventListener("keyup", function (e) {
@@ -39,33 +44,13 @@
         type: "getMessage",
         value: message,
       });
-
-      const textContainer = addMessage("", "CodePal");
-      textContainer.response = "";
-      textContainers.push(textContainer);
-    }
-  }
-
-  function handleIncomingMessage(message) {
-    const textContainer = textContainers[textContainers.length - 1];
-
-    if (textContainer) {
-      switch (message.type) {
-        case "add":
-          textContainer.response += message.value.choices[0].delta.content;
-          textContainer.innerHTML = renderMarkdown(textContainer.response);
-        break;
-        case "end":
-          textContainer.response = "";
-        break;
-      }
     }
   }
 
   function renderMarkdown(markdownText) {
     let md = markdownText;
 
-    const pattern = /(?:^`|[^`]`)([^`]+)(?:`[^`]|`)/gm; // Credits to https://t.me/samsonendale
+    const pattern = /(?:^`|[^`]`)([^`]+)(?:`[^`]|`)/gm; // Credits to https://t.me/SamAsEnd
     md = md.replace(pattern, '<code style="margin-left:4px; margin-right:4px;>$1</code>');
 
     const codeRegex = /```([\s\S]*?)\n([\s\S]+?)\n```/g;
@@ -105,7 +90,6 @@
 
   function refreshView() {
     chatBody.innerHTML = "";
-    textContainers = [];
   }
 
   function addMessage(text, sender) {
@@ -136,8 +120,6 @@
 
     chatBody.appendChild(messageElement);
     chatBody.scrollTop = chatBody.scrollHeight;
-
-    return textContainer;
   }
 })();
 

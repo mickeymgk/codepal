@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { ExtensionContext, Uri, Webview, WebviewView } from "vscode";
-import { CloudflareAgent, Model } from "./CloudflareAgent";
+import { ApiResponse, CloudflareAgent, Model } from "./CloudflareAgent";
 import { CodePalStatusBarItem } from "./CodePalStatusBarItem";
 
 export class CodePalViewProvider implements vscode.WebviewViewProvider {
@@ -26,7 +26,11 @@ export class CodePalViewProvider implements vscode.WebviewViewProvider {
       enableScripts: true,
       localResourceRoots: [this.extensionUri],
     };
+
     webviewView.webview.html = this.getHtmlForWebview(webviewView.webview, this.extensionUri);
+
+    console.log(this.getHtmlForWebview(webviewView.webview, this.extensionUri));
+
     webviewView.webview.onDidReceiveMessage((data) => {
       switch (data.type) {
         case "getMessage":
@@ -48,17 +52,11 @@ export class CodePalViewProvider implements vscode.WebviewViewProvider {
     }
 
     this.statusBar.toLoading();
-    await this.agent.getStream(
-      Model.Instruct,
-      prompt,
-      (data) => {
-        this.view?.webview.postMessage({ type: "add", value: data});
-      },
-      () => {
-        this.view?.webview.postMessage({ type: "end"});
-        this.statusBar.update();
-      }
-    );
+    const response: ApiResponse = await this.agent.getMessage(Model.Instruct, prompt);
+
+    if (this.view) {
+      this.view.webview.postMessage({ type: "addResponse", value: response.result.response });
+    }
     this.statusBar.update();
   }
 
